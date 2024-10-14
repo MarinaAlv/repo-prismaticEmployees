@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 module.exports = router;
-
 const prisma = require('../prisma');
 
 router.get('/', async (req, res, next) => {
   try {
     const employees = await prisma.employee.findMany();
-    res.json(employee);
+    res.json(employees);
   } catch (e) {
     next(e);
   }
@@ -17,7 +16,7 @@ router.get('/:id', async (req, res, next) => {
   const {id} = req.params;
 
   try {
-    const employees = await prisma.employee.findUnique({where: {id: +id}});
+    const employee = await prisma.employee.findUnique({where: {id: +id}});
     if (employee) {
       res.json(employee);
     } else {
@@ -66,8 +65,8 @@ router.post('/', async (req, res, next) => {
     });
   }
   try {
-    const book = await prisma.employee.create({data: {name}});
-    res.status(201).json(book);
+    const employee = await prisma.employee.create({data: {name}});
+    res.status(201).json(employee);
   } catch (e) {
     next(e);
   }

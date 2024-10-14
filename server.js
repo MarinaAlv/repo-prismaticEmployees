@@ -4,7 +4,12 @@ const PORT = 3000;
 
 app.use(express.json());
 
-app.use((req. res. next) =>)
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.originalUrl}`);
+  next();
+});
+
+app.use('/employees', require('./api/employees'));
 
 app.use((req, res, next) => {
   next({status: 404, message: 'Endpoint not found.'});
